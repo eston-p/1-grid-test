@@ -26,4 +26,17 @@ class PostRepository
             'text' => $data['text'],
         ]);
     }
+
+    public function updatePost($postId, $fieldName, $data)
+    {
+        $post = $this->postModel->find($postId);
+        $post->{$fieldName} = $data;
+        $post->save();
+    }
+
+    public function deletePost($postId)
+    {
+        $post = $this->postModel->find($postId);
+        $post->delete();
+    }
 }
