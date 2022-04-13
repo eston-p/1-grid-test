@@ -21,7 +21,7 @@ class PostsController extends Controller
         return $this->postRepository->getAll();
     }
 
-    public function createPosts(StorePostRequest $request)
+    public function create(StorePostRequest $request)
     {
         $validated = $request->validate();
 
@@ -30,6 +30,22 @@ class PostsController extends Controller
             'title' => $validated->safe()->only('title'),
             'text' => $validated->safe()->only('text'),
         ]);
+    }
+
+    public function update(Request $request, $postId)
+    {
+        $title = $request->input('title');
+        $body = $request->input('body');
+
+        $dataToUpdate = $title ?? $body;
+        $fieldName = $title !== null ? 'title' : 'body';
+
+        $this->postRepository->updatePost($postId, $fieldName, $dataToUpdate);
+    }
+
+    public function delete($postId)
+    {
+        $this->postRepository->deletePost($postId);
     }
 
 }
