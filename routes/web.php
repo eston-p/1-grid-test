@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/posts', [\App\Http\Controllers\PostsController::class, 'get'])->name('show');
+Route::get('/', [PostsController::class, 'get'])->name('show');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/create', [PostsController::class, 'create'])->name('create');
+Route::post('/create/post', [PostsController::class, 'store'])->name('post.store');
+Route::get('/update/post/{id}', [PostsController::class, 'updatePostView'])->name('update.post.view');
+Route::put('/update/post/{id}', [PostsController::class, 'update'])->name('update.post');
+
+Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
+
+Route::get('delete/post/{id}', [PostsController::class, 'delete'])->name('delete.post');
 
 require __DIR__.'/auth.php';
