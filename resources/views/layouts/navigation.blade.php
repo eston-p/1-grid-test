@@ -31,9 +31,27 @@
                                 </svg>
                             </div>
                         </button>
+
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- Authentication -->
+                            <x-nav-link :href="route('logout')"
+                                             onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-nav-link>
+
+                    </x-slot>
+
+
+
+                    <x-slot name="content">
+
+                        <x-nav-link :href="route('create')">
+                            {{ __('Create posts') }}
+                        </x-nav-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

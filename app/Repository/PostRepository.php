@@ -13,6 +13,11 @@ class PostRepository
         $this->postModel = $posts;
     }
 
+    public function getById($id)
+    {
+        return $this->postModel->find($id);
+    }
+
     public function getAll()
     {
         return $this->postModel->all();
@@ -27,11 +32,15 @@ class PostRepository
         ]);
     }
 
-    public function updatePost($postId, $fieldName, $data)
+    public function updatePost($postId, $fieldNames, $data)
     {
         $post = $this->postModel->find($postId);
-        $post->{$fieldName} = $data;
-        $post->save();
+
+        foreach ($fieldNames as $key => $name) {
+            $post->{$name} = $data[$key];
+        }
+
+        return $post->save();
     }
 
     public function deletePost($postId)
