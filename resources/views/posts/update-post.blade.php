@@ -13,14 +13,28 @@
             <div>
                 <x-label for="title" :value="__('Title')" />
 
-                <x-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{ $post->title }}" required autofocus />
+                <x-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{ $post->title }}"  autofocus />
+                @error('title')
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>{{ $message }}</li>
+                    </ul>
+                </div>
+                @enderror
             </div>
 
             <!-- Body -->
             <div class="mt-4">
                 <x-label for="body" :value="__('Content')" />
 
-                <x-input id="body" class="block mt-1 w-full" type="text" name="body" value="{{ $post->text }}" required />
+                <x-input id="body" class="block mt-1 w-full" type="text" name="body" value="{{ $post->text }}"  />
+                @error('body')
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>{{ $message }}</li>
+                    </ul>
+                </div>
+                @enderror
             </div>
 
 
