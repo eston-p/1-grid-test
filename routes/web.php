@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,5 +26,7 @@ Route::put('/update/post/{id}', [PostsController::class, 'update'])->name('updat
 Route::get('/dashboard', [HomeController::class, 'home'])->name('dashboard');
 
 Route::get('delete/post/{id}', [PostsController::class, 'delete'])->name('delete.post');
+
+Route::get('/rating/post/{id}/score/{value}', [RatingController::class, 'store'])->name('rating.store');
 
 require __DIR__.'/auth.php';

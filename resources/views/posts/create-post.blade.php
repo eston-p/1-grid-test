@@ -13,6 +13,13 @@
                 <x-label for="title" :value="__('Title')" />
 
                 <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
+                @error('title')
+                    <div class="alert alert-danger">
+                        <ul>
+                                <li>{{ $message }}</li>
+                        </ul>
+                    </div>
+                @enderror
             </div>
 
             <!-- Body -->
@@ -20,6 +27,13 @@
                 <x-label for="body" :value="__('Content')" />
 
                 <x-input id="body" class="block mt-1 w-full" type="text" name="body" :value="old('body')" required />
+                @error('body')
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li>{{ $message }}</li>
+                        </ul>
+                    </div>
+                @enderror
             </div>
 
 

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Rating extends Model
 {
     use HasFactory;
+
+    public $table = 'ratings';
+
+    public $fillable = [
+        'post_id',
+        'score',
+    ];
 }

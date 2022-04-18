@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
+use App\Repository\PostRepository;
+use App\Repository\RatingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,16 +11,19 @@ class PostsController extends Controller
 {
 
     public $postRepository;
+    public $ratingRepository;
 
-    public function __construct(\App\Repository\PostRepository $postRepository)
+    public function __construct(PostRepository $postRepository, RatingRepository $ratingRepository)
     {
         $this->postRepository = $postRepository;
+        $this->ratingRepository = $ratingRepository;
     }
 
     public function get()
     {
         return view('home', [
             'posts' =>  $this->postRepository->getAll(),
+            'rating' => $this->ratingRepository,
         ]);
     }
 
@@ -54,6 +58,11 @@ class PostsController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string'],
+        ]);
+
         $title = $request->input('title');
         $body = $request->input('body');
 
